@@ -1,16 +1,16 @@
 import React from 'react';
 import './App.css';
-import Header from './Header'
-import AppContainer from './AppContainer'
+import Header from './Header';
+import Diary from './Diary';
+import { BrowserRouter } from 'react-router-dom';
+
 
 function App() {
   return (
-    
-         <>
-       <Header />
-       <AppContainer />
-     </>
-
+    <BrowserRouter>
+      <Header />
+        <Diary />
+    </BrowserRouter>
   );
 }
 
