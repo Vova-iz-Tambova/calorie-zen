@@ -1,8 +1,14 @@
 import React from 'react';
+import './AppContainer.css';
 
 function AppContainer() {
   return (
-    <p>Потреблённые калории:</p>
+    <div className="container">
+      <div className="calories">
+        <h2>Калории:</h2>
+      </div>
+      <h2>Добавьте продукты</h2>
+    </div>
   );
 }
 
