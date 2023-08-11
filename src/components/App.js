@@ -1,38 +1,51 @@
-import React from 'react';
-import {BrowserRouter, Route, Routes, Navigate} from 'react-router-dom';
+import React, {useEffect, useState} from 'react';
+import {BrowserRouter, Route, Routes, Navigate, useNavigate} from 'react-router-dom';
 import Header from './Header';
 import Diary from './Diary';
 import Tips from './Tips';
 import Register from './Register';
 import Login from './Login';
 import NavBar from './NavBar';
+import * as auth from '../auth.js';
 import './styles/App.css';
 import ProtectedRouteElement from "./ProtectedRoute";
 
-class App extends React.Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      loggedIn: false
+const App = () => {
+  const [loggedIn, setLoggedIn] = useState();
+
+  useEffect(() => {
+    handleTokenCheck();
+  }, [])
+
+  const handleTokenCheck = () => {
+    if (localStorage.getItem('jwt')){
+      const jwt = localStorage.getItem('jwt')
+      auth.checkToken(jwt).then((res) => {
+        if (res){
+          setLoggedIn(true);
+          navigate("/diary", {replace: true})
+        }
+      });
     }
   }
-  render(){
-    return (
-    <BrowserRouter>
+  const handleLogin = () => {
+    setLoggedIn(true);
+  }
+  return (
+    <>
       <Header />
       <main className="content">
-        {this.state.loggedIn && <NavBar />}
+        {loggedIn && <NavBar />}
         <Routes>
-          <Route path="/" element={this.state.loggedIn ? <Navigate to="/diary" replace /> : <Navigate to="/login" replace />} />
-          <Route path="/diary" element={<ProtectedRouteElement element={Diary} loggedIn={this.state.loggedIn}/>} />
-          <Route path="/tips" element={<ProtectedRouteElement element={Tips} loggedIn={this.state.loggedIn}/>} />
+          <Route path="/" element={loggedIn ? <Navigate to="/diary" replace /> : <Navigate to="/login" replace />} />
+          <Route path="/diary" element={<ProtectedRouteElement element={Diary} loggedIn={loggedIn}/>} />
+          <Route path="/tips" element={<ProtectedRouteElement element={Tips} loggedIn={loggedIn}/>} />
           <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<Login handleLogin={handleLogin} />} />
         </Routes>
       </main>
-    </BrowserRouter>
+    </>
   );
-  }
 }
 
 export default App;

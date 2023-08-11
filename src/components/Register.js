@@ -21,17 +21,15 @@ const Register = () => {
       [name]: value
     });
   }
-
   const handleSubmit = (e) => {
     e.preventDefault();
     if (formValue.password === formValue.confirmPassword){
-      const { username, password, email } = formValue;
-      auth.register(username, password, email).then((res) => {
+      auth.register(formValue.username, formValue.password, formValue.email).then((res) => {
         navigate('/login', {replace: true});
         }
       );
     }
-  } 
+  }
 
   return (
     <div className="register">
