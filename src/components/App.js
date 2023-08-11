@@ -12,7 +12,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      loggedIn: false
+      loggedIn: false 
     };
   }
 
@@ -23,7 +23,7 @@ class App extends React.Component {
       <BrowserRouter>
         <Header />
         <main className="content">
-          <NavBar />
+          {this.state.loggedIn && <NavBar />}
           <Routes>
             <Route
               path="/"
