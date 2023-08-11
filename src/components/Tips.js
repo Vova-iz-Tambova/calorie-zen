@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './Tips.css';
+import './styles/Tips.css';
 
 function Tips() {
   useEffect(() => {
@@ -13,10 +13,10 @@ function Tips() {
   return (
     <div className="tips">
       <ul className="tips__list">
-      {list &&
-          list.map((item, i) => {
-  return (<li key={i} className="tips__item">{item.tip}</li>)
-}) 
+      {list &&  
+        list.map((item, i) => {
+          return (<li key={i} className="tips__item">{item.tip}</li>)
+        })
       }
       </ul>
     </div>
