@@ -9,7 +9,6 @@ import NavBar from './NavBar';
 import './styles/App.css';
 import ProtectedRouteElement from "./ProtectedRoute";
 
-
 class App extends React.Component {
   constructor(props){
     super(props);
@@ -35,6 +34,5 @@ class App extends React.Component {
   );
   }
 }
-
 
 export default App;
